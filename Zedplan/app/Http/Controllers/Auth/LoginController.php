@@ -27,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/completar_registro';
 
     /**
      * Create a new controller instance.
@@ -55,8 +55,9 @@ class LoginController extends Controller
   
         $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
         if(auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password'])))
-        {
-            return redirect()->route('home');
+        {   
+            return redirect()->route('completarRegistro');
+            
         }else{
             return redirect()->route('login')
                 ->with('error','Email-Address And Password Are Wrong.');

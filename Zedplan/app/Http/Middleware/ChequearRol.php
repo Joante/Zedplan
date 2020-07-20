@@ -17,7 +17,7 @@ class ChequearRol
     public function handle($request, Closure $next, $role)
     {
         if (! $request->user()->hasRole($role)) {
-            return redirect()->away('https://www.google.com');        
+            return redirect()->route('home');        
         }
         if($request->has('submit')){
             $request->user()->confirmarUsuario();
