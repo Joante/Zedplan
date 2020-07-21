@@ -16,13 +16,13 @@
 
                             <div class="col-md-6">
                                 <select id='sexo' name='sexo' class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" required>
-					               <option value="" selected/>Seleccione Sexo
-					               <option value="F" />Femenino
-					               <option value="M" />Masculino
-					               <option value="X" />Prefiero no decirlo
-								</select>
+                                   <option value="" selected/>Seleccione Sexo
+                                   <option value="F" />Femenino
+                                   <option value="M" />Masculino
+                                   <option value="X" />Prefiero no decirlo
+                                </select>
 
-								@error('sexo')
+                                @error('sexo')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -75,8 +75,26 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button id="button-siguiente" type="button" onclick="confirmarDireccion()" class="btn btn-primary">
                                     Siguiente
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="form-direccion" style="display: none;">
+                            <label for="address_address">Address</label>
+                            <input type="text" id="address-input" name="address_address" class="form-control map-input">
+                            <input type="hidden" name="address_latitude" id="address-latitude" value="0" />
+                            <input type="hidden" name="address_longitude" id="address-longitude" value="0" />
+                        </div>
+                        <div id="address-map-container" style="width:100%;height:400px; display: none; ">
+                            <div style="width: 100%; height: 100%" id="address-map"></div>
+                        </div>
+                        <br>
+                        <div class="form-group row mb-0" id="boton-guardar" style="display: none;">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Guardar
                                 </button>
                             </div>
                         </div>
@@ -87,3 +105,35 @@
     </div>
 </div>
 @endsection
+
+@section('scripts')
+    @parent
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&libraries=places&callback=initialize" async defer></script>
+    <script src="js/mapInput.js"></script>
+    <script>
+        function confirmarDireccion()
+        {
+            document.getElementById("button-siguiente").style.display="none";
+            if(calcularEdad()>=18){
+                document.getElementById("form-direccion").style.display="block";
+                document.getElementById("address-map-container").style.display="block";
+                document.getElementById("boton-guardar").style.display="block";
+            }else{
+                document.getElementById("boton-guardar").style.display="block";
+            }
+        }
+
+        function calcularEdad() {
+            var hoy = new Date();
+            var cumpleanos = new Date(document.getElementById("fecha_nacimiento").value);
+            var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+            var m = hoy.getMonth() - cumpleanos.getMonth();
+
+            if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+                edad--;
+            }
+
+            return edad;
+        }
+    </script>
+@stop

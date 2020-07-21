@@ -36,13 +36,15 @@ class CompletarRegistroController extends Controller
         }
     }
 
-    public function guardar(Request $request){
+    public function guardar(Request $request)
+    {
     	//Validar los datos ingresados
         $request->validate([
     		'sexo' => 'required|max:1|alpha',
     		'altura' => 'required|max:3',
     		'peso' => 'required|max:3',
     		'fecha_nacimiento' => 'date|required|before:today',
+            'direccion' => 'max:255|alpha',
     	]);
 
         //Guardar los datos en la base de datos
@@ -52,18 +54,34 @@ class CompletarRegistroController extends Controller
         $detalles->altura = $request->altura;
         $detalles->peso = $request->peso;
         $detalles->fecha_nacimiento = $request->fecha_nacimiento;
+
+        //Comprobar si es mayor de edad y guardar la direccion.
+        $edad = Carbon::parse($request->fecha_nacimiento)->age;
+        if($edad >= 18) {
+            $detalles->direccion = $request->address_address;
+            $detalles->direccion_latitud = $request->address_latitude;
+            $detalles->direccion_longitud = $request->address_longitude;
+        }
         $detalles->save();
+        
 
         //Actualizar el rol del usuario a usuario confirmado.
         Auth::User()->confirmarUsuario();
 
-        //Comprobar si es mayor de edad y redigir a partir de ahí.
-        $edad = Carbon::parse($request->fecha_nacimiento)->age;
-        if($edad >= 18) {
-            return redirect()->away('https://www.google.com');
-        }else
-        {
-            return redirect()->route('home');
-        }
+        return view('home');
+
+        
+    }
+
+    public function guardarDireccion (Request $request)
+    {
+        $request->validate([
+            'direccion' => 'required|max:255|alpha',
+            'latitud' => 'required',
+            'longitud' => 'required',
+        ]);
+
+
+        return view('confirmar_dirreccion');
     }
 }

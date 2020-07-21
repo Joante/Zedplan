@@ -12,4 +12,10 @@ class DetallesUsuario extends Model
      * @var string
      */
     protected $table = 'table_detalles_usuario';
+
+     protected $fillable = [
+            'direccion',
+            'direccion_latitud',
+            'direccion_longitud',
+    ];
 }

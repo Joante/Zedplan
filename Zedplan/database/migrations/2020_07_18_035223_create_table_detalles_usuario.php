@@ -21,6 +21,9 @@ class CreateTableDetallesUsuario extends Migration
             $table->integer('altura');
             $table->integer('peso');
             $table->date('fecha_nacimiento');
+            $table->string('direccion')->nullable();
+            $table->double('direccion_latitud')->nullable();
+            $table->double('direccion_longitud')->nullable();
             $table->timestamps();
         });
     }
