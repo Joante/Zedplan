@@ -32,7 +32,7 @@ class CompletarRegistroController extends Controller
             return view('completar_registro');
         }
         else if(Auth::user()->idRol==2){
-            redict()->route('home');   
+            redirect()->route('perfil_show');   
         }
     }
 
@@ -68,7 +68,7 @@ class CompletarRegistroController extends Controller
         //Actualizar el rol del usuario a usuario confirmado.
         Auth::User()->confirmarUsuario();
 
-        return view('home');
+        return redirect()->route('perfil_show');
 
         
     }

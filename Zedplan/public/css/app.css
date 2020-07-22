@@ -65,7 +65,7 @@ section {
 }
 
 body {
-  margin: 0;
+  margin: 0 auto;
   font-family: "Nunito", sans-serif;
   font-size: 0.9rem;
   font-weight: 400;
@@ -73,6 +73,7 @@ body {
   color: #212529;
   text-align: left;
   background-color: #f8fafc;
+  
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -7230,9 +7231,6 @@ button.bg-dark:focus {
   display: table-cell !important;
 }
 
-.d-flex {
-  display: flex !important;
-}
 
 .d-inline-flex {
   display: inline-flex !important;
@@ -8277,13 +8275,7 @@ button.bg-dark:focus {
   position: sticky !important;
 }
 
-.fixed-top {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 1030;
-}
+
 
 .fixed-bottom {
   position: fixed;
@@ -10926,5 +10918,7 @@ a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6;
   }
+
+
 }
 

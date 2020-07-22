@@ -18,6 +18,6 @@ Route::get('/', function () {
 });
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/perfil', 'UsuarioController@show')->name('perfil_show')->middleware('rol:USR_CONF');
 Route::get('/completar_registro', 'CompletarRegistroController@index')->name('completarRegistro')->middleware('rol:SIN_CONF');	
 Route::post('/completar_registro', 'CompletarRegistroController@guardar')->name('completarRegistro')->middleware('rol:SIN_CONF');

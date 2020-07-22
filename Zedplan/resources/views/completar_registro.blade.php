@@ -15,7 +15,7 @@
                             <label for="sexo" class="col-md-4 col-form-label text-md-right">Sexo: </label>
 
                             <div class="col-md-6">
-                                <select id='sexo' name='sexo' class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" required>
+                                <select id='sexo' name='sexo' class="form-control @error('sexo') is-invalid @enderror" value="{{ old('sexo') }}" required>
                                    <option value="" selected/>Seleccione Sexo
                                    <option value="F" />Femenino
                                    <option value="M" />Masculino
@@ -46,7 +46,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="peso" class="col-md-4 col-form-label text-md-right">peso: </label>
+                            <label for="peso" class="col-md-4 col-form-label text-md-right">Peso: </label>
 
                             <div class="col-md-6">
                                 <input id="peso" type="number" class="form-control @error('peso') is-invalid @enderror" name="peso" value="{{ old('peso') }}" required >
@@ -81,11 +81,13 @@
                             </div>
                         </div>
 
-                        <div class="form-group" id="form-direccion" style="display: none;">
-                            <label for="address_address">Address</label>
-                            <input type="text" id="address-input" name="address_address" class="form-control map-input">
-                            <input type="hidden" name="address_latitude" id="address-latitude" value="0" />
-                            <input type="hidden" name="address_longitude" id="address-longitude" value="0" />
+                        <div class="form-group row" id="form-direccion" style="display: none;">
+                            <label for="address_address" class="col-md-4 col-form-label text-md-right">Direccion:</label>
+                            <div class="col-md-6">
+                                <input type="text" id="address-input" name="address_address" class="form-control map-input">
+                                <input type="hidden" name="address_latitude" id="address-latitude" value="0" />
+                                <input type="hidden" name="address_longitude" id="address-longitude" value="0" />
+                            </div>
                         </div>
                         <div id="address-map-container" style="width:100%;height:400px; display: none; ">
                             <div style="width: 100%; height: 100%" id="address-map"></div>
@@ -109,7 +111,7 @@
 @section('scripts')
     @parent
     <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&libraries=places&callback=initialize" async defer></script>
-    <script src="js/mapInput.js"></script>
+    <script src="{{ asset ('js/mapInput.js') }}"></script>
     <script>
         function confirmarDireccion()
         {
