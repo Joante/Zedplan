@@ -17,7 +17,7 @@ class ChequearRol
     public function handle($request, Closure $next, $role)
     {
         if (! $request->user()->hasRole($role)) {
-            return redirect()->route('perfil_show');        
+            return redirect()->route('completarRegistro');        
         }
         if($request->has('submit')){
             $request->user()->confirmarUsuario();

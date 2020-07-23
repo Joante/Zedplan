@@ -27,7 +27,14 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/completar_registro';
+    protected $redirectTo = RouteServiceProvider::HOME;
+
+    /**
+     * Login username to be used by the controller.
+     *
+     * @var string
+     */
+    protected $username;
 
     /**
      * Create a new controller instance.
@@ -37,31 +44,32 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->username = $this->findUsername();
     }
-
+    
     /**
-     * Create a new controller instance.
+     * Get the login username to be used by the controller.
      *
-     * @return void
+     * @return string
      */
-    public function login(Request $request)
-    {  
-        $input = $request->all();
-  
-        $this->validate($request, [
-            'username' => 'required',
-            'password' => 'required',
-        ]);
-  
-        $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-        if(auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password'])))
-        {   
-            return redirect()->route('completarRegistro');
-            
-        }else{
-            return redirect()->route('login')
-                ->with('error','Email-Address And Password Are Wrong.');
-        }
-          
+    public function findUsername()
+    {
+        $login = request()->input('login');
+ 
+        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+ 
+        request()->merge([$fieldType => $login]);
+ 
+        return $fieldType;
+    }
+ 
+    /**
+     * Get username property.
+     *
+     * @return string
+     */
+    public function username()
+    {
+        return $this->username;
     }
 }

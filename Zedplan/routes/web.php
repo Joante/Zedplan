@@ -13,11 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 Auth::routes();
 
 Route::get('/perfil', 'UsuarioController@show')->name('perfil_show')->middleware('rol:USR_CONF');
 Route::get('/completar_registro', 'CompletarRegistroController@index')->name('completarRegistro')->middleware('rol:SIN_CONF');	
-Route::post('/completar_registro', 'CompletarRegistroController@guardar')->name('completarRegistro')->middleware('rol:SIN_CONF');
+Route::post('/completar_registro', 'CompletarRegistroController@guardar')->name('form_registro')->middleware('rol:SIN_CONF');

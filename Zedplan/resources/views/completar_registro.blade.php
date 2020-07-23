@@ -8,7 +8,7 @@
                 <div class="card-header">Completar Registro</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('completarRegistro') }}">
+                    <form method="POST" action="{{ route('form_registro') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -82,7 +82,7 @@
                         </div>
 
                         <div class="form-group row" id="form-direccion" style="display: none;">
-                            <label for="address_address" class="col-md-4 col-form-label text-md-right">Direccion:</label>
+                            <label for="address_address" class="col-md-4 col-form-label text-md-left">Direccion:</label>
                             <div class="col-md-6">
                                 <input type="text" id="address-input" name="address_address" class="form-control map-input">
                                 <input type="hidden" name="address_latitude" id="address-latitude" value="0" />
@@ -110,7 +110,7 @@
 
 @section('scripts')
     @parent
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&libraries=places&callback=initialize" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('app.GOOGLE_API_KEY') }}&libraries=places&callback=initialize" async defer></script>
     <script src="{{ asset ('js/mapInput.js') }}"></script>
     <script>
         function confirmarDireccion()

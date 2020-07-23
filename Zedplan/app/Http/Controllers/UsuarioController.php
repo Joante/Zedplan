@@ -29,11 +29,10 @@ class UsuarioController extends Controller
      */
     public function show()
     {
-
         $usuario = Auth::user();
         //Comprobar si el usuario completo sus datos o no. 
         if($usuario->idRol==1){
-            return view('completar_registro');
+            return redirect()->route('completarRegistro');
         }
 
         $detalles = DetallesUsuario::where('idUsuario', $usuario->id)->first();
